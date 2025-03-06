@@ -16,32 +16,34 @@ func NewDetallesOrden(id, ordenID, platilloID, cantidad int) *DetallesOrden {
 	}
 }
 
+// Getters
 func (d *DetallesOrden) GetID() int {
 	return d.ID
-}
-
-func (d *DetallesOrden) SetID(id int) {
-	d.ID = id
 }
 
 func (d *DetallesOrden) GetOrdenID() int {
 	return d.OrdenID
 }
 
-func (d *DetallesOrden) SetOrdenID(ordenID int) {
-	d.OrdenID = ordenID
-}
-
 func (d *DetallesOrden) GetPlatilloID() int {
 	return d.PlatilloID
 }
 
-func (d *DetallesOrden) SetPlatilloID(platilloID int) {
-	d.PlatilloID = platilloID
-}
-
 func (d *DetallesOrden) GetCantidad() int {
 	return d.Cantidad
+}
+
+// Setters
+func (d *DetallesOrden) SetID(id int) {
+	d.ID = id
+}
+
+func (d *DetallesOrden) SetOrdenID(ordenID int) {
+	d.OrdenID = ordenID
+}
+
+func (d *DetallesOrden) SetPlatilloID(platilloID int) {
+	d.PlatilloID = platilloID
 }
 
 func (d *DetallesOrden) SetCantidad(cantidad int) {
