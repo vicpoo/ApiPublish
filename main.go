@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -20,14 +19,18 @@ func main() {
 	// Crear un router con Gin
 	r := gin.Default()
 
-	// Configuración de CORS
-	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:4200"}, // Cambia esto según la URL de tu frontend
-		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
-		AllowCredentials: true,
-		MaxAge:           12 * time.Hour,
-	}))
+	// Configuración para aceptar todos los proxies (no recomendado para producción)
+	r.SetTrustedProxies(nil)
+
+	// Configuración de CORS usando la del código 2
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowAllOrigins = true
+	corsConfig.AllowCredentials = true
+	corsConfig.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
+	corsConfig.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
+	corsConfig.ExposeHeaders = []string{"Content-Length"}
+
+	r.Use(cors.New(corsConfig))
 
 	// Configuración de rutas para DetallesOrden
 	detallesOrdenRouter := detallesOrdenInfra.NewRouter(r)

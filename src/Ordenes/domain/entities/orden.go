@@ -1,4 +1,4 @@
-// orden_repository.go
+// orden.go
 package entities
 
 import (

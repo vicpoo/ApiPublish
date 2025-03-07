@@ -1,6 +1,9 @@
+// dependencies.go
 package infrastructure
 
 import (
+	"log"
+
 	"github.com/vicpoo/ApiPublish/src/Ordenes/application"
 )
 
@@ -11,17 +14,19 @@ func InitOrdenDependencies() (
 	*DeleteOrdenController,
 	*ViewAllOrdenesController,
 ) {
-	// Inicializar el repositorio
 	repo := NewMySQLOrdenRepository()
 
-	// Crear casos de uso
-	createUseCase := application.NewCreateOrdenUseCase(repo)
+	messaging, err := NewMessagingService()
+	if err != nil {
+		log.Fatalf("Failed to initialize messaging service: %s", err)
+	}
+
+	createUseCase := application.NewCreateOrdenUseCase(repo, messaging)
 	viewUseCase := application.NewViewOrdenUseCase(repo)
 	updateUseCase := application.NewUpdateOrdenUseCase(repo)
 	deleteUseCase := application.NewDeleteOrdenUseCase(repo)
 	viewAllUseCase := application.NewViewAllOrdenesUseCase(repo)
 
-	// Crear controladores
 	createController := NewCreateOrdenController(createUseCase)
 	viewController := NewViewOrdenController(viewUseCase)
 	updateController := NewUpdateOrdenController(updateUseCase)
