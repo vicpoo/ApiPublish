@@ -1,3 +1,4 @@
+// DetallesOrden.go
 package entities
 
 type DetallesOrden struct {
